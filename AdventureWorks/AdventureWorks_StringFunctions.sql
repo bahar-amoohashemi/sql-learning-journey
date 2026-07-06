@@ -92,3 +92,70 @@ SELECT Name,
        RIGHT(Name,3)AS RightName
 FROM Production.Product  
 ORDER BY LEN(Name) DESC
+
+/* ---------------------------------------------------- */
+/*           NEW EXERCISES / UPDATES                    */
+/* ---------------------------------------------------- */
+
+
+/* Exercise 1: Select products with list price greater than 50 */
+SELECT Name, ListPrice
+FROM Production.Product
+WHERE ListPrice > 50;
+
+/* Exercise 2: Select products ordered by list price descending */
+SELECT Name, ListPrice
+FROM Production.Product
+ORDER BY ListPrice DESC;
+
+/* Exercise 3: Select products with list price > 50, ordered by list price descending */
+SELECT Name, ListPrice
+FROM Production.Product
+WHERE ListPrice > 50
+ORDER BY ListPrice DESC;
+
+/* Exercise 4: Categorize products as 'expensive' or 'cheap' using CASE */
+SELECT Name, ListPrice,
+       CASE WHEN ListPrice > 1000 THEN 'expensive'
+       ELSE 'cheap'
+       END AS PriceRange
+FROM Production.Product;
+
+/* Exercise 5: Categorize products into 'expensive', 'normal', and 'cheap' using CASE */
+SELECT Name, ListPrice,
+       CASE WHEN ListPrice > 1000 THEN 'expensive'
+            WHEN ListPrice BETWEEN 100 AND 1000 THEN 'normal'
+            ELSE 'cheap'
+       END AS PriceRange
+FROM Production.Product
+ORDER BY ListPrice DESC;
+
+/* 
+  Exercise 6: Find products with name length exactly 10 
+*/
+SELECT 
+   Name, 
+   LEN(Name) AS NameLength
+FROM Production.Product
+WHERE LEN(Name) = 10;
+
+/* 
+  Exercise 7: Find products starting with 'S', sorted descending
+*/
+SELECT 
+     Name
+FROM Production.Product
+WHERE Name LIKE 'S%'
+ORDER BY Name DESC;
+
+/* 
+  Exercise 8: Products starting with 'S' and Price < 100
+  (Verified by debugging: No products found > 100, so adjusted to < 100)
+*/
+SELECT 
+     Name, 
+     ListPrice, 
+     LEN(Name) AS NameLength
+FROM Production.Product
+WHERE ListPrice < 100 AND Name LIKE 'S%'
+ORDER BY LEN(Name) DESC;
